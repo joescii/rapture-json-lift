@@ -18,33 +18,31 @@
 * either express or implied. See the License for the specific language governing permissions   *
 * and limitations under the License.                                                           *
 \**********************************************************************************************/
-package rapture.json.jsonParsers.lift
+package rapture.json.jsonBackends.lift
 
 import rapture.json._
-import rapture.core._
+import rapture.data._
 
 import net.liftweb.json._
 import JsonAST._
 
-object `package` {
-  implicit val liftStringParser: JsonBufferParser[String] = LiftStringParser
-
-  implicit val jValueExtractor: BasicExtractor[JValue] =
+trait Extractors {
+  implicit val jValueExtractor: BasicExtractor[JValue, Json] =
     BasicExtractor(_.json.asInstanceOf[JValue])
   
-  implicit val jStringExtractor: BasicExtractor[JString] =
+  implicit val jStringExtractor: BasicExtractor[JString, Json] =
     BasicExtractor(_.json.asInstanceOf[JString])
   
-  implicit val jIntExtractor: BasicExtractor[JInt] =
+  implicit val jIntExtractor: BasicExtractor[JInt, Json] =
     BasicExtractor(_.json.asInstanceOf[JInt])
   
-  implicit val jDoubleExtractor: BasicExtractor[JDouble] =
+  implicit val jDoubleExtractor: BasicExtractor[JDouble, Json] =
     BasicExtractor(_.json.asInstanceOf[JDouble])
   
-  implicit val jArrayExtractor: BasicExtractor[JArray] =
+  implicit val jArrayExtractor: BasicExtractor[JArray, Json] =
     BasicExtractor(_.json.asInstanceOf[JArray])
   
-  implicit val jObjectExtractor: BasicExtractor[JObject] =
+  implicit val jObjectExtractor: BasicExtractor[JObject, Json] =
     BasicExtractor(_.json.asInstanceOf[JObject])
 
 }

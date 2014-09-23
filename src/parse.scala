@@ -18,62 +18,69 @@
 * either express or implied. See the License for the specific language governing permissions   *
 * and limitations under the License.                                                           *
 \**********************************************************************************************/
-package rapture.json.jsonParsers.lift
+package rapture.json.jsonBackends.lift
 
 import rapture.core._
 import rapture.json._
+import rapture.data._
 
 import scala.collection.mutable.{ListBuffer, HashMap}
 import scala.collection.JavaConverters
 import net.liftweb.json._
 
-abstract class LiftParser[T] extends JsonBufferParser[T] {
+object `package` {
+
+  implicit val liftAst = LiftAst
+  implicit val liftParser = LiftParser
+}
+
+object LiftAst extends JsonBufferAst {
 
   import JsonAST._
 
   override def dereferenceObject(obj: Any, element: String): Any =
     obj match {
       case JObject(obj) => obj.find(_.name == element).get.value
-      case _ => throw TypeMismatchException(getType(obj), JsonTypes.Object, Vector())
+      case _ => throw TypeMismatchException(getType(obj), DataTypes.Object, Vector())
     }
   
   override def getKeys(obj: Any): Iterator[String] =
     obj match {
       case JObject(obj) => obj.map(_.name).iterator
-      case _ => throw TypeMismatchException(getType(obj), JsonTypes.Object, Vector())
+      case _ => throw TypeMismatchException(getType(obj), DataTypes.Object, Vector())
     }
   
   override def dereferenceArray(array: Any, element: Int): Any =
     array match {
       case JArray(arr) => arr(element)
-      case _ => throw TypeMismatchException(getType(array), JsonTypes.Array, Vector())
+      case _ => throw TypeMismatchException(getType(array), DataTypes.Array, Vector())
     }
 
   def getArray(array: Any): List[Any] = array match {
     case JArray(xs)=> xs.toList
-    case _ => throw TypeMismatchException(getType(array), JsonTypes.Array, Vector())
+    case _ => throw TypeMismatchException(getType(array), DataTypes.Array, Vector())
   }
 
   def getBoolean(boolean: Any): Boolean = boolean match {
     case boolean: Boolean => boolean
     case JBool(v) => v
-    case _ => throw TypeMismatchException(getType(boolean), JsonTypes.Boolean, Vector())
+    case _ => throw TypeMismatchException(getType(boolean), DataTypes.Boolean, Vector())
   }
   
   def getDouble(double: Any): Double = double match {
     case JDouble(d) => d
     case JInt(v) => v.toDouble
-    case _ => throw TypeMismatchException(getType(double), JsonTypes.Number, Vector())
+    case _ => throw TypeMismatchException(getType(double), DataTypes.Number, Vector())
   }
   
   def getString(string: Any): String = string match {
     case JString(s) => s
-    case _ => throw TypeMismatchException(getType(string), JsonTypes.String, Vector())
+    case _ => throw TypeMismatchException(getType(string), DataTypes.String, Vector())
   }
   
   def getObject(obj: Any): Map[String, Any] = obj match {
     case JObject(o) => o.map{ f => f.name -> f.value }.toMap
-    case _ => throw TypeMismatchException(getType(obj), JsonTypes.Object, Vector())
+    case _ => throw TypeMismatchException(getType(obj), DataTypes.Object, Vector())
   }
   
   def setObjectValue(obj: Any, name: String, value: Any): Any = {
@@ -120,6 +127,7 @@ abstract class LiftParser[T] extends JsonBufferParser[T] {
     case _ => false
   }
   
+  def nullValue: Any = JNull
   
   def fromArray(array: Seq[Any]): Any = JArray(array.to[List] map { case v: JValue => v })
   def fromBoolean(boolean: Boolean): Any = JBool(boolean)
@@ -132,7 +140,8 @@ abstract class LiftParser[T] extends JsonBufferParser[T] {
 
 }
 
-object LiftStringParser extends LiftParser[String] {
+object LiftParser extends Parser[String, JsonBufferAst] {
+  val ast = LiftAst
   def parse(s: String): Option[Any] =
     try Some(JsonParser.parse(s)) catch { case e: Exception => None }
 }
