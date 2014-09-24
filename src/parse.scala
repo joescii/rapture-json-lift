@@ -144,4 +144,6 @@ object LiftParser extends Parser[String, JsonBufferAst] {
   val ast = LiftAst
   def parse(s: String): Option[Any] =
     try Some(JsonParser.parse(s)) catch { case e: Exception => None }
+
+  override def toString = "<LiftParser>"
 }
