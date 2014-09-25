@@ -85,7 +85,10 @@ object LiftAst extends JsonBufferAst {
   
   def setObjectValue(obj: Any, name: String, value: Any): Any = {
     val contents = (name, value) :: obj.asInstanceOf[JObject].obj.filter(_.name != name)
-    JObject(contents map { case (k: String, v: JValue) => JField(k, v) })
+    JObject(contents map {
+      case JField(k: String, v: JValue) => JField(k, v)
+      case (k: String, v: JValue) => JField(k, v)
+    })
   }
   
   def removeObjectValue(obj: Any, name: String): Any =
@@ -94,8 +97,11 @@ object LiftAst extends JsonBufferAst {
   def addArrayValue(array: Any, value: Any): Any =
     JArray(array.asInstanceOf[JArray].arr :+ value.asInstanceOf[JValue])
   
-  def setArrayValue(array: Any, index: Int, value: Any): Any =
-    JArray(array.asInstanceOf[JArray].arr.padTo(index, null).patch(index, Seq(value.asInstanceOf[JValue]), 1))
+  def setArrayValue(array: Any, index: Int, value: Any): Any = array match {
+    case array: JArray =>
+      JArray(array.arr.padTo(index, JNull).patch(index, Seq(value.asInstanceOf[JValue]), 1))
+    case _ => throw TypeMismatchException(getType(array), DataTypes.Array, Vector(Left(index)))
+  }
   
   def isArray(array: Any): Boolean = array match {
     case JArray(xs)=> true
