@@ -1,6 +1,6 @@
 /**********************************************************************************************\
 * Rapture JSON Library                                                                         *
-* Version 1.0.0                                                                                *
+* Version 1.0.3                                                                                *
 *                                                                                              *
 * The primary distribution site is                                                             *
 *                                                                                              *
@@ -27,22 +27,22 @@ import net.liftweb.json._
 import JsonAST._
 
 trait Extractors {
-  implicit val jValueExtractor: BasicExtractor[JValue, Json] =
-    BasicExtractor(_.json.asInstanceOf[JValue])
+  implicit val jValueExtractor: BasicExtractor[JValue, JsonDataType[_, _ <: JsonAst]] =
+    BasicExtractor(_.$normalize.asInstanceOf[JValue])
   
-  implicit val jStringExtractor: BasicExtractor[JString, Json] =
-    BasicExtractor(_.json.asInstanceOf[JString])
+  implicit val jStringExtractor: BasicExtractor[JString, JsonDataType[_, _ <: JsonAst]] =
+    BasicExtractor(_.$normalize.asInstanceOf[JString])
   
-  implicit val jIntExtractor: BasicExtractor[JInt, Json] =
-    BasicExtractor(_.json.asInstanceOf[JInt])
+  implicit val jIntExtractor: BasicExtractor[JInt, JsonDataType[_, _ <: JsonAst]] =
+    BasicExtractor(_.$normalize.asInstanceOf[JInt])
   
-  implicit val jDoubleExtractor: BasicExtractor[JDouble, Json] =
-    BasicExtractor(_.json.asInstanceOf[JDouble])
+  implicit val jDoubleExtractor: BasicExtractor[JDouble, JsonDataType[_, _ <: JsonAst]] =
+    BasicExtractor(_.$normalize.asInstanceOf[JDouble])
   
-  implicit val jArrayExtractor: BasicExtractor[JArray, Json] =
-    BasicExtractor(_.json.asInstanceOf[JArray])
+  implicit val jArrayExtractor: BasicExtractor[JArray, JsonDataType[_, _ <: JsonAst]] =
+    BasicExtractor(_.$normalize.asInstanceOf[JArray])
   
-  implicit val jObjectExtractor: BasicExtractor[JObject, Json] =
-    BasicExtractor(_.json.asInstanceOf[JObject])
+  implicit val jObjectExtractor: BasicExtractor[JObject, JsonDataType[_, _ <: JsonAst]] =
+    BasicExtractor(_.$normalize.asInstanceOf[JObject])
 
 }

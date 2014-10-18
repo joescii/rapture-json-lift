@@ -1,6 +1,6 @@
 /**********************************************************************************************\
 * Rapture JSON Library                                                                         *
-* Version 1.0.0                                                                                *
+* Version 1.0.3                                                                                *
 *                                                                                              *
 * The primary distribution site is                                                             *
 *                                                                                              *
@@ -65,6 +65,12 @@ object LiftAst extends JsonBufferAst {
     case boolean: Boolean => boolean
     case JBool(v) => v
     case _ => throw TypeMismatchException(getType(boolean), DataTypes.Boolean, Vector())
+  }
+  
+  def getBigDecimal(bigDecimal: Any): BigDecimal = bigDecimal match {
+    case JDouble(d) => BigDecimal(d)
+    case JInt(v) => BigDecimal(v.toDouble)
+    case _ => throw TypeMismatchException(getType(bigDecimal), DataTypes.Number, Vector())
   }
   
   def getDouble(double: Any): Double = double match {
@@ -138,6 +144,7 @@ object LiftAst extends JsonBufferAst {
   def fromArray(array: Seq[Any]): Any = JArray(array.to[List] map { case v: JValue => v })
   def fromBoolean(boolean: Boolean): Any = JBool(boolean)
   def fromDouble(number: Double): Any = JDouble(number)
+  def fromBigDecimal(number: BigDecimal): Any = JDouble(number.toDouble)
   
   def fromObject(obj: Map[String,Any]): Any =
     JObject(obj.map{ case (k, v: JValue) => JField(k, v) }.to[List])
