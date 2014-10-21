@@ -1,6 +1,6 @@
 /**********************************************************************************************\
 * Rapture JSON Library                                                                         *
-* Version 1.0.3                                                                                *
+* Version 1.0.4                                                                                *
 *                                                                                              *
 * The primary distribution site is                                                             *
 *                                                                                              *
@@ -28,15 +28,11 @@ import scala.collection.mutable.{ListBuffer, HashMap}
 import scala.collection.JavaConverters
 import net.liftweb.json._
 
-object `package` {
-
-  implicit val liftAst = LiftAst
-  implicit val liftParser = LiftParser
-}
-
 object LiftAst extends JsonBufferAst {
 
   import JsonAST._
+
+  override def toString = "<LiftAst>"
 
   override def dereferenceObject(obj: Any, element: String): Any =
     obj match {
@@ -151,12 +147,4 @@ object LiftAst extends JsonBufferAst {
   
   def fromString(string: String): Any = JString(string)
 
-}
-
-object LiftParser extends Parser[String, JsonBufferAst] {
-  val ast = LiftAst
-  def parse(s: String): Option[Any] =
-    try Some(JsonParser.parse(s)) catch { case e: Exception => None }
-
-  override def toString = "<LiftParser>"
 }

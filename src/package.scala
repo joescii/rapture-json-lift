@@ -20,29 +20,18 @@
 \**********************************************************************************************/
 package rapture.json.jsonBackends.lift
 
+import rapture.core._
 import rapture.json._
 import rapture.data._
 
+import scala.collection.mutable.{ListBuffer, HashMap}
+import scala.collection.JavaConverters
 import net.liftweb.json._
-import JsonAST._
 
-trait Extractors {
-  implicit val jValueExtractor: JsonExtractor[JValue] =
-    BasicExtractor(_.$normalize.asInstanceOf[JValue])
-  
-  implicit val jStringExtractor: JsonExtractor[JString] =
-    BasicExtractor(_.$normalize.asInstanceOf[JString])
-  
-  implicit val jIntExtractor: JsonExtractor[JInt] =
-    BasicExtractor(_.$normalize.asInstanceOf[JInt])
-  
-  implicit val jDoubleExtractor: JsonExtractor[JDouble] =
-    BasicExtractor(_.$normalize.asInstanceOf[JDouble])
-  
-  implicit val jArrayExtractor: JsonExtractor[JArray] =
-    BasicExtractor(_.$normalize.asInstanceOf[JArray])
-  
-  implicit val jObjectExtractor: JsonExtractor[JObject] =
-    BasicExtractor(_.$normalize.asInstanceOf[JObject])
-
+object `package` extends Serializers with Extractors {
+  implicit val liftAst = LiftAst
+  implicit val liftParser = LiftParser
 }
+
+object serialization extends Serializers 
+object extraction extends Extractors 
