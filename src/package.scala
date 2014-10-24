@@ -32,6 +32,3 @@ object `package` extends Serializers with Extractors {
   implicit val liftAst = LiftAst
   implicit val liftParser = LiftParser
 }
-
-object serialization extends Serializers 
-object extraction extends Extractors 
