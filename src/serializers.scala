@@ -1,6 +1,6 @@
 /**********************************************************************************************\
 * Rapture JSON Library                                                                         *
-* Version 1.0.4                                                                                *
+* Version 1.0.5                                                                                *
 *                                                                                              *
 * The primary distribution site is                                                             *
 *                                                                                              *
@@ -27,5 +27,5 @@ import net.liftweb.json._
 import JsonAST._
 
 trait Serializers {
-  implicit val jValueSerializer: DirectSerializer[JValue] = DirectSerializer(LiftAst)
+  implicit val jValueSerializer: DirectJsonSerializer[JValue] = DirectJsonSerializer(LiftAst)
 }
