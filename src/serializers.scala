@@ -20,18 +20,12 @@
 \**********************************************************************************************/
 package rapture.json.jsonBackends.lift
 
-import rapture.core._
 import rapture.json._
 import rapture.data._
 
-import scala.collection.mutable.{ListBuffer, HashMap}
-import scala.collection.JavaConverters
 import net.liftweb.json._
+import JsonAST._
 
-object LiftParser extends Parser[String, JsonBufferAst] {
-  val ast = LiftAst
-  def parse(s: String): Option[Any] =
-    try Some(JsonParser.parse(s)) catch { case e: Exception => None }
-
-  override def toString = "<LiftParser>"
+trait Serializers {
+  implicit val jValueSerializer: DirectJsonSerializer[JValue] = DirectJsonSerializer(LiftAst)
 }

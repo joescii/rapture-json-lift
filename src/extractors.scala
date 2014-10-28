@@ -20,18 +20,17 @@
 \**********************************************************************************************/
 package rapture.json.jsonBackends.lift
 
-import rapture.core._
 import rapture.json._
 import rapture.data._
 
-import scala.collection.mutable.{ListBuffer, HashMap}
-import scala.collection.JavaConverters
 import net.liftweb.json._
+import JsonAST._
 
-object LiftParser extends Parser[String, JsonBufferAst] {
-  val ast = LiftAst
-  def parse(s: String): Option[Any] =
-    try Some(JsonParser.parse(s)) catch { case e: Exception => None }
-
-  override def toString = "<LiftParser>"
+trait Extractors {
+  implicit val jValueExtractor: JsonCastExtractor[JValue] = JsonCastExtractor(LiftAst)
+  implicit val jStringExtractor: JsonCastExtractor[JString] = JsonCastExtractor(LiftAst)
+  implicit val jIntExtractor: JsonCastExtractor[JInt] = JsonCastExtractor(LiftAst)
+  implicit val jDoubleExtractor: JsonCastExtractor[JDouble] = JsonCastExtractor(LiftAst)
+  implicit val jArrayExtractor: JsonCastExtractor[JArray] = JsonCastExtractor(LiftAst)
+  implicit val jObjectExtractor: JsonCastExtractor[JObject] = JsonCastExtractor(LiftAst)
 }
