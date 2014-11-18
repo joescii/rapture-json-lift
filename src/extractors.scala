@@ -27,10 +27,21 @@ import net.liftweb.json._
 import JsonAST._
 
 trait Extractors {
-  implicit val jValueExtractor: JsonCastExtractor[JValue] = JsonCastExtractor(LiftAst)
-  implicit val jStringExtractor: JsonCastExtractor[JString] = JsonCastExtractor(LiftAst)
-  implicit val jIntExtractor: JsonCastExtractor[JInt] = JsonCastExtractor(LiftAst)
-  implicit val jDoubleExtractor: JsonCastExtractor[JDouble] = JsonCastExtractor(LiftAst)
-  implicit val jArrayExtractor: JsonCastExtractor[JArray] = JsonCastExtractor(LiftAst)
-  implicit val jObjectExtractor: JsonCastExtractor[JObject] = JsonCastExtractor(LiftAst)
+  implicit val jValueExtractor: JsonCastExtractor[JValue] =
+    JsonCastExtractor(LiftAst, DataTypes.Undefined)
+  
+  implicit val jStringExtractor: JsonCastExtractor[JString] =
+    JsonCastExtractor(LiftAst, DataTypes.String)
+  
+  implicit val jIntExtractor: JsonCastExtractor[JInt] =
+    JsonCastExtractor(LiftAst, DataTypes.Number)
+  
+  implicit val jDoubleExtractor: JsonCastExtractor[JDouble] =
+    JsonCastExtractor(LiftAst, DataTypes.Number)
+  
+  implicit val jArrayExtractor: JsonCastExtractor[JArray] =
+    JsonCastExtractor(LiftAst, DataTypes.Array)
+  
+  implicit val jObjectExtractor: JsonCastExtractor[JObject] =
+    JsonCastExtractor(LiftAst, DataTypes.Object)
 }

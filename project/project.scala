@@ -1,11 +1,11 @@
 object project extends ProjectSettings {
   def scalaVersion = "2.11.4"
-  def version = "1.0.6"
+  def version = "1.0.7"
   def name = "json-lift"
   def description = "Rapture JSON/Lift provides support the Lift parser in Rapture JSON"
   
   def dependencies = Seq(
-    "json" -> "1.0.6"
+    "json" -> "1.0.7"
   )
   
   def thirdPartyDependencies = Seq(
