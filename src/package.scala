@@ -29,6 +29,6 @@ import scala.collection.JavaConverters
 import net.liftweb.json._
 
 object `package` extends Serializers with Extractors {
-  implicit val liftAst = LiftAst
-  implicit val liftParser = LiftParser
+  implicit val implicitJsonAst = LiftAst
+  implicit val implicitJsonStringParser = LiftParser
 }

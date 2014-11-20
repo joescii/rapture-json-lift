@@ -27,5 +27,6 @@ import net.liftweb.json._
 import JsonAST._
 
 trait Serializers {
-  implicit val jValueSerializer: DirectJsonSerializer[JValue] = DirectJsonSerializer(LiftAst)
+  implicit val liftJValueSerializer: DirectJsonSerializer[JValue] =
+    DirectJsonSerializer(LiftAst)
 }
