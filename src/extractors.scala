@@ -1,6 +1,6 @@
 /**********************************************************************************************\
 * Rapture JSON Library                                                                         *
-* Version 1.0.6                                                                                *
+* Version 1.1.0                                                                                *
 *                                                                                              *
 * The primary distribution site is                                                             *
 *                                                                                              *
@@ -21,27 +21,28 @@
 package rapture.json.jsonBackends.lift
 
 import rapture.json._
+import rapture.json.internal.JsonCastExtractor
 import rapture.data._
 
 import net.liftweb.json._
 import JsonAST._
 
 trait Extractors {
-  implicit val jValueExtractor: JsonCastExtractor[JValue] =
+  implicit val liftJValueExtractor: JsonCastExtractor[JValue] =
     JsonCastExtractor(LiftAst, DataTypes.Undefined)
   
-  implicit val jStringExtractor: JsonCastExtractor[JString] =
+  implicit val liftJStringExtractor: JsonCastExtractor[JString] =
     JsonCastExtractor(LiftAst, DataTypes.String)
   
-  implicit val jIntExtractor: JsonCastExtractor[JInt] =
+  implicit val liftJIntExtractor: JsonCastExtractor[JInt] =
     JsonCastExtractor(LiftAst, DataTypes.Number)
   
-  implicit val jDoubleExtractor: JsonCastExtractor[JDouble] =
+  implicit val liftJDoubleExtractor: JsonCastExtractor[JDouble] =
     JsonCastExtractor(LiftAst, DataTypes.Number)
   
-  implicit val jArrayExtractor: JsonCastExtractor[JArray] =
+  implicit val liftJArrayExtractor: JsonCastExtractor[JArray] =
     JsonCastExtractor(LiftAst, DataTypes.Array)
   
-  implicit val jObjectExtractor: JsonCastExtractor[JObject] =
+  implicit val liftJObjectExtractor: JsonCastExtractor[JObject] =
     JsonCastExtractor(LiftAst, DataTypes.Object)
 }

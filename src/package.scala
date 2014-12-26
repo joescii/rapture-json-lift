@@ -1,6 +1,6 @@
 /**********************************************************************************************\
 * Rapture JSON Library                                                                         *
-* Version 1.0.6                                                                                *
+* Version 1.1.0                                                                                *
 *                                                                                              *
 * The primary distribution site is                                                             *
 *                                                                                              *
@@ -29,6 +29,6 @@ import scala.collection.JavaConverters
 import net.liftweb.json._
 
 object `package` extends Serializers with Extractors {
-  implicit val liftAst = LiftAst
-  implicit val liftParser = LiftParser
+  implicit val implicitJsonAst = LiftAst
+  implicit val implicitJsonStringParser = LiftParser
 }
