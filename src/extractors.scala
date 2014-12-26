@@ -21,6 +21,7 @@
 package rapture.json.jsonBackends.lift
 
 import rapture.json._
+import rapture.json.internal.JsonCastExtractor
 import rapture.data._
 
 import net.liftweb.json._
