@@ -29,7 +29,7 @@ import JsonAST._
 
 trait Extractors {
   implicit val liftJValueExtractor: JsonCastExtractor[JValue] =
-    JsonCastExtractor(LiftAst, DataTypes.Undefined)
+    JsonCastExtractor(LiftAst, DataTypes.Any)
   
   implicit val liftJStringExtractor: JsonCastExtractor[JString] =
     JsonCastExtractor(LiftAst, DataTypes.String)
