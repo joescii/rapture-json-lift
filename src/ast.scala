@@ -37,52 +37,52 @@ object LiftAst extends JsonBufferAst {
   override def dereferenceObject(obj: Any, element: String): Any =
     obj match {
       case JObject(obj) => obj.find(_.name == element).get.value
-      case _ => throw TypeMismatchException(getType(obj), DataTypes.Object, Vector())
+      case _ => throw TypeMismatchException(getType(obj), DataTypes.Object)
     }
   
   override def getKeys(obj: Any): Iterator[String] =
     obj match {
       case JObject(obj) => obj.map(_.name).iterator
-      case _ => throw TypeMismatchException(getType(obj), DataTypes.Object, Vector())
+      case _ => throw TypeMismatchException(getType(obj), DataTypes.Object)
     }
   
   override def dereferenceArray(array: Any, element: Int): Any =
     array match {
       case JArray(arr) => arr(element)
-      case _ => throw TypeMismatchException(getType(array), DataTypes.Array, Vector())
+      case _ => throw TypeMismatchException(getType(array), DataTypes.Array)
     }
 
   def getArray(array: Any): List[Any] = array match {
     case JArray(xs)=> xs.toList
-    case _ => throw TypeMismatchException(getType(array), DataTypes.Array, Vector())
+    case _ => throw TypeMismatchException(getType(array), DataTypes.Array)
   }
 
   def getBoolean(boolean: Any): Boolean = boolean match {
     case boolean: Boolean => boolean
     case JBool(v) => v
-    case _ => throw TypeMismatchException(getType(boolean), DataTypes.Boolean, Vector())
+    case _ => throw TypeMismatchException(getType(boolean), DataTypes.Boolean)
   }
   
   def getBigDecimal(bigDecimal: Any): BigDecimal = bigDecimal match {
     case JDouble(d) => BigDecimal(d)
     case JInt(v) => BigDecimal(v.toDouble)
-    case _ => throw TypeMismatchException(getType(bigDecimal), DataTypes.Number, Vector())
+    case _ => throw TypeMismatchException(getType(bigDecimal), DataTypes.Number)
   }
   
   def getDouble(double: Any): Double = double match {
     case JDouble(d) => d
     case JInt(v) => v.toDouble
-    case _ => throw TypeMismatchException(getType(double), DataTypes.Number, Vector())
+    case _ => throw TypeMismatchException(getType(double), DataTypes.Number)
   }
   
   def getString(string: Any): String = string match {
     case JString(s) => s
-    case _ => throw TypeMismatchException(getType(string), DataTypes.String, Vector())
+    case _ => throw TypeMismatchException(getType(string), DataTypes.String)
   }
   
   def getObject(obj: Any): Map[String, Any] = obj match {
     case JObject(o) => o.map{ f => f.name -> f.value }.toMap
-    case _ => throw TypeMismatchException(getType(obj), DataTypes.Object, Vector())
+    case _ => throw TypeMismatchException(getType(obj), DataTypes.Object)
   }
   
   def setObjectValue(obj: Any, name: String, value: Any): Any = {
@@ -102,7 +102,7 @@ object LiftAst extends JsonBufferAst {
   def setArrayValue(array: Any, index: Int, value: Any): Any = array match {
     case array: JArray =>
       JArray(array.arr.padTo(index, JNull).patch(index, Seq(value.asInstanceOf[JValue]), 1))
-    case _ => throw TypeMismatchException(getType(array), DataTypes.Array, Vector(Left(index)))
+    case _ => throw TypeMismatchException(getType(array), DataTypes.Array)
   }
   
   def isArray(array: Any): Boolean = array match {
