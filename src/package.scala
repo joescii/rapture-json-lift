@@ -28,7 +28,7 @@ import scala.collection.mutable.{ListBuffer, HashMap}
 import scala.collection.JavaConverters
 import net.liftweb.json._
 
-object `package` extends Serializers with Extractors {
-  implicit val implicitJsonAst = LiftAst
-  implicit val implicitJsonStringParser = LiftParser
+object `package` extends internal.Serializers with internal.Extractors {
+  implicit val implicitJsonAst = internal.LiftAst
+  implicit val implicitJsonStringParser = internal.LiftParser
 }
