@@ -18,7 +18,7 @@
 * either express or implied. See the License for the specific language governing permissions   *
 * and limitations under the License.                                                           *
 \**********************************************************************************************/
-package rapture.json.jsonBackends.lift
+package rapture.json.jsonBackends.lift.internal
 
 import rapture.core._
 import rapture.json._
