@@ -18,16 +18,15 @@
 * either express or implied. See the License for the specific language governing permissions   *
 * and limitations under the License.                                                           *
 \**********************************************************************************************/
-package rapture.json.jsonBackends.lift.internal
+package rapture.json.jsonBackends.lift
 
 import rapture.json._
-import rapture.json.internal.DirectJsonSerializer
 import rapture.data._
 
 import net.liftweb.json._
 import JsonAST._
 
-trait Serializers {
+private[lift] trait Serializers {
   implicit val liftJValueSerializer: DirectJsonSerializer[JValue] =
     DirectJsonSerializer(LiftAst)
 }

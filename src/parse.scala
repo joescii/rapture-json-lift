@@ -18,7 +18,7 @@
 * either express or implied. See the License for the specific language governing permissions   *
 * and limitations under the License.                                                           *
 \**********************************************************************************************/
-package rapture.json.jsonBackends.lift.internal
+package rapture.json.jsonBackends.lift
 
 import rapture.core._
 import rapture.json._
@@ -28,7 +28,7 @@ import scala.collection.mutable.{ListBuffer, HashMap}
 import scala.collection.JavaConverters
 import net.liftweb.json._
 
-object LiftParser extends Parser[String, JsonBufferAst] {
+private[lift] object LiftParser extends Parser[String, JsonBufferAst] {
   val ast = LiftAst
   def parse(s: String): Option[Any] =
     try Some(JsonParser.parse(s)) catch { case e: Exception => None }
